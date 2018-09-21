@@ -23,7 +23,7 @@
 
     /*
      * Create array with months ans days quantity.
-     * Vars:
+     * Initial:
      * - each year has 13 months,
      * - each even month has 21 days, each odd month has 22 days,
      * - in leap year last month has less one day.

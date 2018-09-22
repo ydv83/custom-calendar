@@ -31,11 +31,9 @@
     function getMonthsMap($year) {
       $months = array();
       for ($month = 1; $month <= 13 ; $month++) {
+        $months[$month] = 22;
         if ($month % 2 == 0) {
           $months[$month] = 21;
-        }
-        else {
-          $months[$month] = 22;
         }
       }
       if ($this->isLeap($year)) {
@@ -49,11 +47,9 @@
     * Build full calendar array for year range.
     */
     function getFullCalendar() {
+      $years = array(0 => 1990);
       if ($this->year > 1990) {
         $years = range(1990, $this->year);
-      }
-      else {
-        $years = array(0 => 1990);
       }
 
       $week = array(
@@ -70,24 +66,19 @@
         $months = $this->getMonthsMap($year);
         $year_map = array();
         foreach ($months as $month => $days) {
-          $days_quantity = $days;
-          $week_offset = 0;
           if ($month == 1 && $year == 1990) {
-            $week_offset = 1;
+            $next_week_start = 1;
           }
-          for ($i = 0; $i < $days_quantity; $i++) {
+          for ($i = 0; $i < $days; $i++) {
             $day_index = $i % 7;
             if (!empty($next_week_start)) {
               $day_index = $day_index + $next_week_start;
-            }
-            if (!empty($week_offset)) {
-              $day_index = $day_index + $week_offset;
             }
             if (!isset($week[$day_index])) {
               $day_index = $day_index % 7;
             }
             $year_map[$month][$i + 1] = $week[$day_index];
-            if ($i == $days_quantity - 1) {
+            if ($i == $days - 1) {
               $next_week_start = $day_index + 1;
               if (!isset($week[$next_week_start])) {
                 $next_week_start = $next_week_start % 7;
